@@ -386,6 +386,8 @@ operator<<(std::basic_ostream<Char,Traits>& os, const CPFloatView& x) {
 }
 }
 
+#include <cpfloat/prop-advanced/expression.hh>
+
 namespace MPG {
 
   void branch(Gecode::Home home, CPFloatVar x);
@@ -403,6 +405,9 @@ namespace MPG {
   void subtraction(Gecode::Space& home, CPFloatVar x, CPFloatVar y, CPFloatVar z);
   void times(Gecode::Space& home, CPFloatVar x, CPFloatVar y, CPFloatVar z);
   void power(Gecode::Space& home, CPFloatVar x, int e, CPFloatVar y);
+  
+  void hc4(Gecode::Space& home, CPFloat::Constraint& cst);
+  void k3b(Gecode::Space& home, CPFloat::Constraint& cst);
 }
 
 #endif
