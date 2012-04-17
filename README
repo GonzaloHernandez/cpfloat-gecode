@@ -1,1 +1,5 @@
-This project aim contribute to Generic Constraint Development Environment GECODE [http://http://www.gecode.org/].
+This project aim to contribute to Generic Constraint Development Environment GECODE [http://http://www.gecode.org/].
+
+In order to manimupation of flotating numbers was used two code previously implemented:
+  1. Interval Arithmetic Library of Boost c++ libraries
+  2. Smath library
