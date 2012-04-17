@@ -232,7 +232,7 @@ Expression& Expression::cloneToUpdate() {
 }
 
 forceinline
-Expression& Expression::cloneWithReplace(Space& home, CPFloatView& source,CPFloatView& target) {
+Expression& Expression::cloneWithReplace(Space& , CPFloatView& ,CPFloatView& ) {
   cout << "*** Warning *** Expression Method used (cloneWithReplace(...))" << endl;
   return *(new Expression());
 }
@@ -545,7 +545,7 @@ Expression& ConstExpression::cloneToUpdate() {
 }
 
 forceinline
-Expression& ConstExpression::cloneWithReplace(Space& home, CPFloatView& source,CPFloatView& target) {
+Expression& ConstExpression::cloneWithReplace(Space& , CPFloatView& ,CPFloatView& ) {
   return *(new ConstExpression(v_));
 }
 
