@@ -1,7 +1,7 @@
 #include <gecode/search.hh>
 #include <gecode/gist.hh>
 #include <cpfloat/cpfloat.hh>
-#include <cpfloat/expression.hh>
+#include <cpfloat/prop-advanced/expression.hh>
 
 using namespace Gecode;
 using namespace MPG;
