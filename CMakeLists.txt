@@ -143,7 +143,7 @@ set(CPFLOAT_SRCS
   cpfloat/cpfloat.hh
   cpfloat/main.cpp
 
-#propagators
+#propagators (base)
   cpfloat/prop-base/sin.cpp
   cpfloat/prop-base/sin.hh
   cpfloat/prop-base/cos.cpp
@@ -166,6 +166,11 @@ set(CPFLOAT_SRCS
   cpfloat/prop-base/times.hh
   cpfloat/prop-base/power.cpp
   cpfloat/prop-base/power.hh
+
+#propagators (advanced)
+  cpfloat/prop-advanced/expression.hh
+  cpfloat/prop-advanced/hc4.cpp
+  cpfloat/prop-advanced/hc4.hh
 )
 add_library(gecodecpfloat ${CPFLOAT_SRCS})
 target_link_libraries(gecodecpfloat smath mpfr ${Gecode_LIBRARIES})
@@ -216,3 +221,33 @@ target_link_libraries(arithmetic gecodecpfloat ${Gecode_LIBRARIES})
 
 add_executable(trigonometric tests/trigonometric.cpp)
 target_link_libraries(trigonometric gecodecpfloat ${Gecode_LIBRARIES})
+
+add_executable(freudenstein-hc4 tests/freudenstein-hc4.cpp)
+target_link_libraries(freudenstein-hc4 gecodecpfloat ${Gecode_LIBRARIES})
+
+add_executable(bellido-hc4 tests/bellido-hc4.cpp)
+target_link_libraries(bellido-hc4 gecodecpfloat ${Gecode_LIBRARIES})
+
+add_executable(grocery-hc4 tests/grocery-hc4.cpp)
+target_link_libraries(grocery-hc4 gecodecpfloat ${Gecode_LIBRARIES})
+
+add_executable(cyclo-hc4 tests/cyclo-hc4.cpp)
+target_link_libraries(cyclo-hc4 gecodecpfloat ${Gecode_LIBRARIES})
+
+add_executable(caprasse-hc4 tests/caprasse-hc4.cpp)
+target_link_libraries(caprasse-hc4 gecodecpfloat ${Gecode_LIBRARIES})
+
+add_executable(bronstein-hc4 tests/bronstein-hc4.cpp)
+target_link_libraries(bronstein-hc4 gecodecpfloat ${Gecode_LIBRARIES})
+
+add_executable(sinxcosx-hc4 tests/sinxcosx-hc4.cpp)
+target_link_libraries(sinxcosx-hc4 gecodecpfloat ${Gecode_LIBRARIES})
+
+add_executable(sinxx1-hc4 tests/sinxx1-hc4.cpp)
+target_link_libraries(sinxx1-hc4 gecodecpfloat ${Gecode_LIBRARIES})
+
+add_executable(sinxx2-hc4 tests/sinxx2-hc4.cpp)
+target_link_libraries(sinxx2-hc4 gecodecpfloat ${Gecode_LIBRARIES})
+
+add_executable(collins-hc4 tests/collins-hc4.cpp)
+target_link_libraries(collins-hc4 gecodecpfloat ${Gecode_LIBRARIES})
