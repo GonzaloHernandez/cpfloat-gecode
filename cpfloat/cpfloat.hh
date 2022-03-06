@@ -75,7 +75,7 @@ public:
  * \brief Float domain.
  *
  * A float domain is approximated by means of a greatest lower
- * bound \a glb and a least upper bound \a lub.
+ * bound \c glb and a least upper bound \c lub.
  */
 class CPFloatVarImp : public CPFloatVarImpBase {
 protected:
@@ -83,13 +83,14 @@ protected:
   Interval  impl_;
   BoundType presicion_;
 public:
-  /// \name Constructors and disposers
+  /// \a Constructors and disposer
   //@{
-  /// Constructor for a variable created between lower bound and upper bound.
+  /// Constructor for a variable with empty lower bound and
   CPFloatVarImp(Space& home, BoundType l, BoundType u, BoundType p=0.000000001)
     : CPFloatVarImpBase(home), impl_(l,u), presicion_(p) {}
   /// Resources disposal
   void dispose(Space&) {
+    //std::cout << "Starting disposal" << std::endl;
   }
   //@}
   /// \name Bound access
@@ -153,7 +154,7 @@ public:
     return (impl_.upper()-impl_.lower()<presicion_);
   }
   //@}
-  /// \name Subscriptions handling
+  /// \name Subscriptions hadling
   //@{
   // subscriptions
   void subscribe(Space& home, Propagator& p, PropCond pc, bool schedule=true) {
@@ -194,35 +195,24 @@ public:
 
 // variable
 namespace MPG {
-/**
- * \brief Float Var.
- *
- * A float var is a var of constraint programming user for represent of a
- * continuous domain.  This Float Var is implemented for CPFloatVarImp.
- *
- */
+
 class CPFloatVar : public VarImpVar<CPFloat::CPFloatVarImp> {
 protected:
   using VarImpVar<CPFloat::CPFloatVarImp>::x;
 public:
-  /// \name Constructors
-  //@{
-  /// Constructor for a empty variable
   CPFloatVar(void) {}
-  /// Constructor for a variable created as copy of another Float Var
   CPFloatVar(const CPFloatVar& y)
     : VarImpVar<CPFloat::CPFloatVarImp>(y.varimp()) {}
-  /// Constructor for a variable created using a Var Implementation
   CPFloatVar(CPFloat::CPFloatVarImp *y)
     : VarImpVar<CPFloat::CPFloatVarImp>(y) {}
-  /// Constructor for a variable created between lower bound and upper bound.
-  CPFloatVar(Space& home, CPFloat::BoundType l, CPFloat::BoundType u, CPFloat::BoundType precision=0.000000001)
+
+  // variable creation
+  CPFloatVar(Space& home, CPFloat::BoundType l, CPFloat::BoundType u, CPFloat::BoundType precision=0.0000000000001)
     : VarImpVar<CPFloat::CPFloatVarImp>
       (new (home) CPFloat::CPFloatVarImp(home,l,u,precision)) {
     if (l > u)
       throw CPFloat::VariableEmptyDomain("CPFloatVar::CPFloatVar");
   }
-  //@}
   /// \name Domain information
   //@{
   /**
@@ -386,6 +376,7 @@ operator<<(std::basic_ostream<Char,Traits>& os, const CPFloatView& x) {
 }
 }
 
+#include <cpfloat/expression.hh>
 namespace MPG {
 
   void branch(Gecode::Home home, CPFloatVar x);
@@ -403,6 +394,15 @@ namespace MPG {
   void subtraction(Gecode::Space& home, CPFloatVar x, CPFloatVar y, CPFloatVar z);
   void times(Gecode::Space& home, CPFloatVar x, CPFloatVar y, CPFloatVar z);
   void power(Gecode::Space& home, CPFloatVar x, int e, CPFloatVar y);
+
+  void hc4(Gecode::Space& home, CPFloat::Constraint& cst);
+  void k3b(Gecode::Space& home, CPFloat::Constraint& cst);
+
 }
+
+
+
+
+
 
 #endif

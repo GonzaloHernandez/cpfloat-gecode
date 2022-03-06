@@ -7,45 +7,55 @@ using namespace Gecode;
 using namespace MPG;
 using namespace MPG::CPFloat;
 
-class Trigonometric : public Gecode::Space {
+class SinxCosx : public Gecode::Space {
 protected:
   CPFloatVar x;
   CPFloatVar y;
   CPFloatVar z;
 public:
-  Trigonometric(void)  {
-    x = CPFloatVar(*this,-10,10);
-    y = CPFloatVar(*this,-2.0,2.0);
-    z = CPFloatVar(*this,-2.0,2.0);
+  SinxCosx(void)  {
+    x = CPFloatVar(*this,0.0,3.1415);
+    y = CPFloatVar(*this,-1.0,1.0);
+    z = CPFloatVar(*this,-1.0,1.0);
 
     sin(*this,x,y);
     cos(*this,x,z);
     equality(*this,y,z);
-
     branch(*this,x);
-    branch(*this,y);
-    branch(*this,z);
   }
+
   void print(std::ostream& os) const {
-    os << "\tx:" << x;
-    os << " y:" << y;
-    os << " z:" << z << std::endl;
+    os << "\tsol x: " << x << std::endl;
+    os << "\t y: " << y << std::endl;
+    os << "\t z: " << z << std::endl;
   }
-  Trigonometric(bool share, Trigonometric& s)
+
+  SinxCosx(bool share, SinxCosx& s)
     : Gecode::Space(share,s) {
     x.update(*this, share, s.x);
     y.update(*this,share,s.y);
     z.update(*this,share,s.z);
   }
+
   virtual Space* copy(bool share) {
-    return new Trigonometric(share,*this);
+    return new SinxCosx(share,*this);
   }
 };
 
 int main(int, char**) {
-  Trigonometric* g = new Trigonometric();
+  SinxCosx* g = new SinxCosx();
 
-  Gist::Print<Trigonometric> p("Sin(x) = Cos(x)");
+  /*
+  Gecode::DFS<SinxCosx> e(g);
+  delete g;
+  std::cout << "Search will start" << std::endl;
+  while (Gecode::Space* s = e.next()) {
+    static_cast<SinxCosx*>(s)->print(std::cout);
+    delete s;
+  }
+*/
+
+  Gist::Print<SinxCosx> p("Sin(x) = Cos(x)");
   Gist::Options o;
   o.inspect.click(&p);
   Gist::dfs(g,o);

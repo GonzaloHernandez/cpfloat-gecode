@@ -71,7 +71,6 @@ public:
     BoundType m = x_.median();
     return new SimpleChoice(*this,m);
   }
-  /// Creates a choice by selecting a tuple from the unknown of the variable
   virtual Choice* choice(const Space&, Gecode::Archive&) {
     assert(false);
     return (SimpleChoice*)NULL;
@@ -88,10 +87,11 @@ public:
 };
 
 /**
- * \brief First Fail, array based brancher
+ * \brief Size Min, tuple based brancher
  *
- * Custom brancher on a relation variable that select a most left variable
- * with the minimum size.
+ * Custom brancher on a relation variable that selects a tuple and decides
+ * to include and exclude it, according to find first unassigned variable with
+ * the minimum size.
  */
 class FirstFail : public Gecode::Brancher {
 protected:
@@ -153,7 +153,6 @@ public:
       }
     return new PosVal(*this,p,x_[p].median());
   }
-  /// Creates a choice by selecting a tuple from the unknown of the variable
   virtual Choice* choice(const Space&, Gecode::Archive& e) {
     int pos;
     e >> pos;
@@ -172,10 +171,10 @@ public:
 };
 
 /**
- * \brief Naive, array based brancher
+ * \brief Naive, tuple based brancher
  *
- * Custom brancher on a relation variable that selects a variable in order
- * of left to right
+ * Custom brancher on a relation variable that selects a tuple and decides
+ * to include and exclude it, without improve performance.
  */
 class Naive : public Gecode::Brancher {
 protected:
@@ -234,7 +233,6 @@ public:
       }
     return NULL;
   }
-  /// Creates a choice by selecting a tuple from the unknown of the variable
   virtual Choice* choice(const Space&, Gecode::Archive&) {
     assert(false);
     return (PosVal*)NULL;
@@ -252,9 +250,10 @@ public:
 };
 
 /**
- * \brief Rand, array based brancher
+ * \brief Rand, tuple based brancher
  *
- * Custom brancher on a relation variable that selects a random variable
+ * Custom brancher on a relation variable that selects a tuple and decides
+ * to include and exclude it, without improve performance.
  */
 class Rand : public Gecode::Brancher {
 protected:
@@ -321,7 +320,6 @@ public:
 
     return new PosVal(*this,pos,unassignedVars[pos].median());
   }
-  /// Creates a choice by selecting a tuple from the unknown of the variable
   virtual Choice* choice(const Space&, Gecode::Archive&) {
     assert(false);
     return (PosVal*)NULL;

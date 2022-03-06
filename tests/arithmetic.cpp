@@ -3,6 +3,7 @@
 #include <cpfloat/cpfloat.hh>
 
 using namespace Gecode;
+
 using namespace MPG;
 using namespace MPG::CPFloat;
 
@@ -24,7 +25,7 @@ public:
   }
 
   void print(std::ostream& os) const {
-    os << x << y <<  z << std::endl;
+    os << "xyz" << x << y <<  z << std::endl;
   }
 
   Arithmetic(bool share, Arithmetic& s)
@@ -48,6 +49,12 @@ int main(int, char**) {
       delete s;
   }
   delete g;
+
+//  Gist::Print<Arithmetic> p("x * y = z | y = x");
+//  Gist::Options o;
+//  o.inspect.click(&p);
+//  Gist::dfs(g,o);
+//  delete g;
 
   return 0;
 }
